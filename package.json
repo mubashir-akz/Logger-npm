@@ -1,6 +1,6 @@
 {
   "name": "node-logger-npm",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -14,7 +14,6 @@
   },
   "homepage": "https://github.com/mubashir-akz/Logger-npm#readme",
   "dependencies": {
-    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "@types/node": "^18.14.6",
