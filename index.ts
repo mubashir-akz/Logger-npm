@@ -22,8 +22,9 @@ export class Loggers {
   constructor(path: string, options: LoggerOptions = {}) {
     this.path = path;
     this.level = options.level || 'DEBUG';
-    this.fileDate = '';
-    this.file = options.filename || `${this.level.toLowerCase()}.log`;
+    const today = new Date().toLocaleDateString();
+    this.file = `${today?.replace(/\//g, '-')}.log`;
+    this.fileDate = today;
   
     try {
       if (!fs.existsSync(this.path)) {
