@@ -1,0 +1,24 @@
+{
+  "name": "is-wds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mubashir-akz/Logger-npm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mubashir-akz/Logger-npm/issues"
+  },
+  "homepage": "https://github.com/mubashir-akz/Logger-npm#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "is-wds": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "typescript": "^4.9.5"
+  }
+}
