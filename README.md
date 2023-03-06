@@ -19,7 +19,11 @@ import { Loggers, LogLevel } from 'loggers';
 
 Next, create a new instance of the Logger class:
 ``` javascript
-const logger = new Loggers('/path/to/logs', { level: LogLevel.DEBUG });
+const logger = new Loggers('./logs',{
+    filename: 'test',
+    level: 'INFO',
+    newLogDaily: true,
+});
 ```
 
 The first parameter is the path to the directory where the log files will be saved. 
