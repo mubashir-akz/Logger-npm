@@ -11,6 +11,7 @@ export enum LogLevel {
 export interface LoggerOptions {
   level?: LogLevel;
   filename?: string;
+  newLogDaily?: boolean;
 }
 
 export class Loggers {
@@ -19,13 +20,15 @@ export class Loggers {
   private fileDate: string; // keep track of date of last log entry
   private file: string;
   private readonly filename: string = 'log';
+  private newLogDaily: boolean = false;
   
   constructor(path: string, options: LoggerOptions = {}) {
     this.path = path;
-    this.level = options.level || 'DEBUG';
+    this.level = options.level || '';
     const today = new Date().toLocaleDateString();
     this.fileDate = today;
     this.filename = options.filename || 'log';
+    this.newLogDaily = options.newLogDaily || false;
     this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
   
     try {
@@ -43,7 +46,7 @@ export class Loggers {
   private rotateLogs() {
     try {
       const today = new Date().toLocaleDateString();
-      if (today !== this.fileDate) {
+      if (today !== this.fileDate && this.newLogDaily) {
         // set new log file with today's date in filename
         this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
         this.fileDate = today;

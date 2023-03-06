@@ -14,11 +14,13 @@ var Loggers = /** @class */ (function () {
     function Loggers(path, options) {
         if (options === void 0) { options = {}; }
         this.filename = 'log';
+        this.newLogDaily = false;
         this.path = path;
-        this.level = options.level || 'DEBUG';
+        this.level = options.level || '';
         var today = new Date().toLocaleDateString();
         this.fileDate = today;
         this.filename = options.filename || 'log';
+        this.newLogDaily = options.newLogDaily || false;
         this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), ".log");
         try {
             if (!fs.existsSync(this.path)) {
@@ -34,7 +36,7 @@ var Loggers = /** @class */ (function () {
     Loggers.prototype.rotateLogs = function () {
         try {
             var today = new Date().toLocaleDateString();
-            if (today !== this.fileDate) {
+            if (today !== this.fileDate && this.newLogDaily) {
                 // set new log file with today's date in filename
                 this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), ".log");
                 this.fileDate = today;
