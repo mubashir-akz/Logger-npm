@@ -1,13 +1,22 @@
 {
   "name": "node-logger-npm",
-  "version": "1.0.4",
-  "description": "",
+  "version": "1.0.6",
+  "description": "A simple logger for Node.js",
+  "keywords": [
+    "logger",
+    "logging",
+    "apm",
+    "monitoring",
+    "debugging",
+    "error handling",
+    "Node.js"
+  ],
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mubashir-akz/Logger-npm.git"
   },
-  "author": "",
+  "author": "mubashir-akz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mubashir-akz/Logger-npm/issues"
