@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
 export enum LogLevel {
   DEBUG = 'DEBUG',
@@ -18,13 +18,15 @@ export class Loggers {
   private readonly level: string;
   private fileDate: string; // keep track of date of last log entry
   private file: string;
+  private readonly filename: string = 'log';
   
   constructor(path: string, options: LoggerOptions = {}) {
     this.path = path;
     this.level = options.level || 'DEBUG';
     const today = new Date().toLocaleDateString();
-    this.file = `${today?.replace(/\//g, '-')}.log`;
     this.fileDate = today;
+    this.filename = options.filename || 'log';
+    this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
   
     try {
       if (!fs.existsSync(this.path)) {
@@ -43,7 +45,7 @@ export class Loggers {
       const today = new Date().toLocaleDateString();
       if (today !== this.fileDate) {
         // set new log file with today's date in filename
-        this.file = `${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
+        this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
         this.fileDate = today;
   
         // create new log file
