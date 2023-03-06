@@ -15,12 +15,14 @@ var Loggers = /** @class */ (function () {
         if (options === void 0) { options = {}; }
         this.filename = 'log';
         this.newLogDaily = false;
+        this.maxLogSize = 1000000; // 1MB
         this.path = path;
         this.level = options.level || '';
         var today = new Date().toLocaleDateString();
         this.fileDate = today;
         this.filename = options.filename || 'log';
         this.newLogDaily = options.newLogDaily || false;
+        this.maxLogSize = options.maxLogSize || 1000000; // 1MB
         this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), ".log");
         try {
             if (!fs.existsSync(this.path)) {
@@ -36,7 +38,7 @@ var Loggers = /** @class */ (function () {
     Loggers.prototype.rotateLogs = function () {
         try {
             var today = new Date().toLocaleDateString();
-            if (today !== this.fileDate && this.newLogDaily) {
+            if ((today !== this.fileDate && this.newLogDaily) || (fs.statSync("".concat(this.path, "/").concat(this.file)).size > this.maxLogSize && this.maxLogSize > 0)) {
                 // set new log file with today's date in filename
                 this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), ".log");
                 this.fileDate = today;

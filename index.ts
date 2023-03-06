@@ -12,6 +12,7 @@ export interface LoggerOptions {
   level?: LogLevel;
   filename?: string;
   newLogDaily?: boolean;
+  maxLogSize?: number;
 }
 
 export class Loggers {
@@ -21,6 +22,7 @@ export class Loggers {
   private file: string;
   private readonly filename: string = 'log';
   private newLogDaily: boolean = false;
+  private maxLogSize: number =  1000000; // 1MB
   
   constructor(path: string, options: LoggerOptions = {}) {
     this.path = path;
@@ -29,6 +31,7 @@ export class Loggers {
     this.fileDate = today;
     this.filename = options.filename || 'log';
     this.newLogDaily = options.newLogDaily || false;
+    this.maxLogSize = options.maxLogSize || 1000000; // 1MB
     this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
   
     try {
@@ -46,7 +49,7 @@ export class Loggers {
   private rotateLogs() {
     try {
       const today = new Date().toLocaleDateString();
-      if (today !== this.fileDate && this.newLogDaily) {
+      if ((today !== this.fileDate && this.newLogDaily) || (fs.statSync(`${this.path}/${this.file}`).size > this.maxLogSize && this.maxLogSize > 0)) {
         // set new log file with today's date in filename
         this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
         this.fileDate = today;

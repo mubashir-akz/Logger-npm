@@ -23,11 +23,14 @@ const logger = new Loggers('./logs',{
     filename: 'test',
     level: 'INFO',
     newLogDaily: true,
+    maxLogSize: 1000000, // 1MB
 });
 ```
 
 The first parameter is the path to the directory where the log files will be saved. 
 The second parameter is an optional options object that can contain a log level (default is DEBUG) and a filename.
+The third parameter is an optional boolean that indicates whether a new log file should be created every day (default is false).
+The Fourth parameter is an optional number that indicates the maximum size of the log file in bytes (default is 1000000).
 
 
 To write a log message, simply call the appropriate log-level method:
