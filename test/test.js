@@ -1,4 +1,4 @@
-const { Loggers } = require('./index');
+const { Loggers } = require('../index');
 
 const logger = new Loggers('./logs',{
     filename: 'test',
