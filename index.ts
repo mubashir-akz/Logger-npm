@@ -49,9 +49,9 @@ export class Loggers {
   private rotateLogs() {
     try {
       const today = new Date().toLocaleDateString();
-      if ((today !== this.fileDate && this.newLogDaily) || (fs.statSync(`${this.path}/${this.file}`).size > this.maxLogSize && this.maxLogSize > 0)) {
+      if ((today !== this.fileDate && this.newLogDaily) || (fs.existsSync(`${this.path}/${this.file}`) && fs.statSync(`${this.path}/${this.file}`).size > this.maxLogSize && this.maxLogSize > 0)) {
         // set new log file with today's date in filename
-        this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}.log`;
+        this.file = `${this.filename.toLowerCase()}_${this.level.toLowerCase()}_${today?.replace(/\//g, '-')}_${new Date().getTime()}.log`;
         this.fileDate = today;
   
         // create new log file

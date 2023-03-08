@@ -38,9 +38,9 @@ var Loggers = /** @class */ (function () {
     Loggers.prototype.rotateLogs = function () {
         try {
             var today = new Date().toLocaleDateString();
-            if ((today !== this.fileDate && this.newLogDaily) || (fs.statSync("".concat(this.path, "/").concat(this.file)).size > this.maxLogSize && this.maxLogSize > 0)) {
+            if ((today !== this.fileDate && this.newLogDaily) || (fs.existsSync("".concat(this.path, "/").concat(this.file)) && fs.statSync("".concat(this.path, "/").concat(this.file)).size > this.maxLogSize && this.maxLogSize > 0)) {
                 // set new log file with today's date in filename
-                this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), ".log");
+                this.file = "".concat(this.filename.toLowerCase(), "_").concat(this.level.toLowerCase(), "_").concat(today === null || today === void 0 ? void 0 : today.replace(/\//g, '-'), "_").concat(new Date().getTime(), ".log");
                 this.fileDate = today;
                 // create new log file
                 var time = new Date().toLocaleString();
